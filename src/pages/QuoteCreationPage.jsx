@@ -1,6 +1,6 @@
 import React, { useState, useCallback, lazy, Suspense } from "react";
 import QuotePreview from "../component/quote/QuotePreview";
-import { uploadMedia } from "../api/quote";
+import { createQuote, uploadImage } from "../api/quote";
 
 const QuoteCreationPage = () => {
   const [quoteText, setQuoteText] = useState("");
@@ -9,9 +9,10 @@ const QuoteCreationPage = () => {
 
   const handleImageUpload = useCallback(async (file) => {
     try {
-      const mediaResponse = await uploadMedia(file); 
-      if (mediaResponse && mediaResponse.mediaUrl) {
-        setMediaUrl(mediaResponse.mediaUrl);
+      const mediaResponse = await uploadImage(file);
+      console.log(mediaResponse);
+      if (mediaResponse && mediaResponse[0].url) {
+        setMediaUrl(mediaResponse[0].url);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -22,7 +23,7 @@ const QuoteCreationPage = () => {
     async (e) => {
       e.preventDefault();
       try {
-        const createResponse = await createQuote({ text: quoteText, mediaUrl }); 
+        const createResponse = await createQuote({ text: quoteText, mediaUrl });
         if (createResponse) {
           alert("Quote created successfully!");
           setQuoteText("");
@@ -37,8 +38,8 @@ const QuoteCreationPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center ">
+      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg border border-blue-400">
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Create a New Quote
         </h1>
@@ -85,7 +86,7 @@ const QuoteCreationPage = () => {
           )}
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-3 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-200"
           >
             Create Quote
           </button>

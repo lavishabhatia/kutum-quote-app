@@ -1,31 +1,45 @@
 import axios from "axios";
-import { baseURL } from "./constant";
+import { baseURL, getStoreHeader, imageUploadURL } from "./constant";
 
-export const uploadMedia = async (file) => {
-  const formData = new FormData();
-  formData.append("file", file);
-
+export const uploadImage = async (file) => {
   try {
-    const response = await axios.post(`${baseURL}/uploadMedia`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await axios.post(`${imageUploadURL}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getStoreHeader()}`,
+      },
     });
-    return response.data; // Assuming the response contains the mediaUrl
+
+    if (res?.status === 200) {
+      return res.data;
+    }
   } catch (error) {
-    console.error("Upload Media API error:", error);
-    throw error;
+    console.error("Upload Image API error:", error);
+    throw new Error("Failed to upload image. Please try again.");
   }
+  return null;
 };
 
-export const createQuote = async (data) => {
+export const createQuote = async (payload) => {
   try {
-    const response = await axios.post(`${baseURL}/postQuote`, data, {
-      headers: { Authorization: `Bearer <TOKEN>` }, // Replace <TOKEN> dynamically
+    const res = await axios.post(`${baseURL}/postQuote`, payload, {
+      headers: {
+        Authorization: `Bearer ${getStoreHeader()}`,
+        "Content-Type": "application/json",
+      },
     });
-    return response.data;
+
+    if (res?.status === 200) {
+      return res.data;
+    }
   } catch (error) {
     console.error("Create Quote API error:", error);
-    throw error;
+    throw new Error("Failed to create quote. Please try again.");
   }
+  return null;
 };
 
 // Get Quotes API

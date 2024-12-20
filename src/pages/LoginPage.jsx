@@ -22,8 +22,11 @@ const LoginPage = () => {
       });
 
       if (response?.status === 200) {
-        alert("Login successful!");
+        console.log(response);
+        const token = response.data.token;
+        localStorage.setItem("authToken", token);
         navigate("/quote");
+        alert("Login successful!");
         // Handle successful login (e.g., redirect or store token)
       } else {
         setError("Invalid username or OTP.");
