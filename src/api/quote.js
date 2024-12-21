@@ -23,23 +23,44 @@ export const uploadImage = async (file) => {
   return null;
 };
 
-export const createQuote = async (payload) => {
-  try {
-    const res = await axios.post(`${baseURL}/postQuote`, payload, {
-      headers: {
-        Authorization: `Bearer ${getStoreHeader()}`,
-        "Content-Type": "application/json",
-      },
-    });
+// export const createQuote = async (payload) => {
+//   try {
+//     const res = await axios.post(`${baseURL}/postQuote`, payload, {
+//       headers: {
+//         Authorization: `Bearer ${getStoreHeader()}`,
+//         "Content-Type": "application/json",
+//       },
+//     });
 
-    if (res?.status === 200) {
-      return res.data;
-    }
+//     if (res?.status === 200) {
+//       return res.data;
+//     }
+//   } catch (error) {
+//     console.error("Create Quote API error:", error);
+//     throw new Error("Failed to create quote. Please try again.");
+//   }
+//   return null;
+// };
+
+export const createQuote = async (payload) => {
+  const token = getStoreHeader(); // Ensure this retrieves the valid token
+  try {
+    const res = await axios.post(
+      "https://assignment.stage.crafto.app/postQuote",
+      {data:payload},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return res.data; // Handle response
   } catch (error) {
-    console.error("Create Quote API error:", error);
-    throw new Error("Failed to create quote. Please try again.");
+    console.error("Create Quote API Error:", error.response?.data || error);
+    throw new Error("Failed to create quote.");
   }
-  return null;
 };
 
 // Get Quotes API

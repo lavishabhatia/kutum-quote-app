@@ -38,31 +38,37 @@ const QuoteListPage = () => {
           Quote List
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {quotes.map((quote) => (
+          {/* {quotes.map((quote) => ( */}
             <div
-              key={quote.id}
+              // key={quote.id}
               className="relative bg-white rounded-lg shadow-md overflow-hidden"
             >
               <div className="relative">
                 <img
-                  src={quote.mediaUrl}
-                  alt={quote.text}
+                  // src={quote.mediaUrl}
+                  src="https://media.crafto.app/assignment/225x225/b8e2d9dd-9cea-4914-9191-b0ce90e9bb1d?dimension=225x225"
+                  // alt={quote.text}
                   className="h-48 w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                   <p className="text-white text-lg font-semibold text-center px-4">
-                    {quote.text}
+                    {/* {quote.text} */}
+                    kjdhjhdih
                   </p>
                 </div>
               </div>
               <div className="p-4">
-                <p className="text-gray-700 font-medium">{quote.username}</p>
+                <p className="text-gray-700 font-medium">
+                  {/* {quote.username} */}
+                  ji
+                  </p>
                 <p className="text-gray-500 text-sm">
-                  {new Date(quote.created_at).toLocaleString()}
+                  {/* {new Date(quote.created_at).toLocaleString()} */}
+                  jhiuiugugu
                 </p>
               </div>
             </div>
-          ))}
+          {/* ))} */}
         </div>
         {hasMore && (
           <div className="flex justify-center mt-6">
