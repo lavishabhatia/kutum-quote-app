@@ -25,7 +25,7 @@ const LoginPage = () => {
         const token = response.data.token;
         localStorage.setItem("authToken", token);
         navigate("/quote");
-        alert("Login successful!");
+        // alert("Login successful!");
       } else {
         setError("Invalid username or OTP.");
       }
