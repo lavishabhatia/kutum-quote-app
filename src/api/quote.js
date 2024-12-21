@@ -23,55 +23,34 @@ export const uploadImage = async (file) => {
   return null;
 };
 
-// export const createQuote = async (payload) => {
-//   try {
-//     const res = await axios.post(`${baseURL}/postQuote`, payload, {
-//       headers: {
-//         Authorization: `Bearer ${getStoreHeader()}`,
-//         "Content-Type": "application/json",
-//       },
-//     });
-
-//     if (res?.status === 200) {
-//       return res.data;
-//     }
-//   } catch (error) {
-//     console.error("Create Quote API error:", error);
-//     throw new Error("Failed to create quote. Please try again.");
-//   }
-//   return null;
-// };
-
 export const createQuote = async (payload) => {
-  const token = getStoreHeader(); // Ensure this retrieves the valid token
+  console.log("Authorization Token:", getStoreHeader());
   try {
-    const res = await axios.post(
-      "https://assignment.stage.crafto.app/postQuote",
-      {data:payload},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return res.data; // Handle response
-  } catch (error) {
-    console.error("Create Quote API Error:", error.response?.data || error);
-    throw new Error("Failed to create quote.");
-  }
-};
-
-// Get Quotes API
-export const getQuotes = async (token, limit, offset) => {
-  try {
-    const res = await axios.get(`${baseURL}/getQuotes`, {
-      params: { limit, offset },
+    const res = await axios.post(`${baseURL}/postQuote`, payload, {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${getStoreHeader()}`,
+        "Content-Type": "application/json",
       },
     });
+
+    console.log(res);
+
+    if (res?.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error("Create Quote API error:", error);
+  }
+  return null;
+};
+
+export const getQuotes = async ({  offset }) => {
+  try {
+    const res = await axios.get(`https://assignment.stage.crafto.app/getQuotes?limit=20&offset=${offset}`, 
+    {  headers: {
+        Authorization: `Bearer ${getStoreHeader()}`, 
+      },}
+    );
     if (res?.status === 200) {
       return res.data;
     }
@@ -81,3 +60,4 @@ export const getQuotes = async (token, limit, offset) => {
   }
   return null;
 };
+

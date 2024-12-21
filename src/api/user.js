@@ -1,9 +1,9 @@
 import axios from "axios";
-import { baseURL } from "./constant";
+import {  IP } from "./constant";
 
 export const login = async (data) => {
   try {
-    const res = await axios.post(`${baseURL}/login`, data);
+    const res = await axios.post(`${IP}/login`, data);
     if (res?.status === 200) {
       return res;
     }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { login } from "../api/user";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +26,6 @@ const LoginPage = () => {
         localStorage.setItem("authToken", token);
         navigate("/quote");
         alert("Login successful!");
-        // Handle successful login (e.g., redirect or store token)
       } else {
         setError("Invalid username or OTP.");
       }
