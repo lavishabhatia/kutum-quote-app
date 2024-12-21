@@ -1,8 +1,8 @@
-// src/pages/QuoteList.jsx
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getStoreHeader } from "../api/constant";
-import FloatingActionButton from "../component/ui/FloadtingActionButton";
+import FloatingActionButton from "../component/ui/FloatingActionButton";
 import QuoteCard from "../component/quote/QuoteCard";
 
 const QuoteList = () => {
